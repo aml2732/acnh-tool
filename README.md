@@ -16,7 +16,9 @@ If you need to regenerate the data follow the instructions below:
 Note this isn't automatically included in the project cus copying all that data and putting on my github in its raw form just doesn't seem right.
 
 # Create dist
-
+- `npm run build`
+- Note: you can see your built output in `build` folder, but for demo purposes, a copy is placed in `demo`.
+- Note Note: Copying and pasting isn't enough for ^ above step. You need to replace `/static/` with `./static` in index.html (`npm run build` builds with you having a static server in mind. You need to change it to run localy to use relative paths)
 
 
 
