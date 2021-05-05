@@ -14,9 +14,18 @@ If you need to regenerate the data follow the instructions below:
 - In google doc, click the 'Recipes' tab (You might have to arrow over for a bit to find it)
 - Then in google doc go to file>download>.csv
 - Save/move that file into acnh-tool/data with the file name `Recipes.csv`
+- Do the above steps again for the other tabs and name them:
+  - Fencing tab: `/data/Fencing.csv`
+  - Floors tab: `/data/Floors.csv`
+  - Housewares tab: `/data/Housewares.csv`
+  - Miscellaneous tab: `/data/Miscellaneous.csv`
+  - Rugs tab: `/data/Rugs.csv`
+  - Tools tab: `/data/Tools.csv`
+  - Wall-mounted tab: `/data/Wall-mounted.csv`
+  - Wallpaper tab: `/data/Wallpaper.csv`
 - Then run this script: `node scripts/generate-data.js`
-- The data will output to acnh-tool/data.json
-- Copy this javascript array into recipeList.js
+- ~~The data will output to acnh-tool/data.json~~ DONE
+- ~~Copy this javascript array into recipeList.js~~ DONE
 
 Note this isn't automatically included in the project cus copying all that data and putting on my github in its raw form just doesn't seem right.
 

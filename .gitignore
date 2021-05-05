@@ -23,5 +23,13 @@ yarn-debug.log*
 yarn-error.log*
 
 /data/Recipes.csv
+/data/Fencing.csv
+/data/Floors.csv
+/data/Housewares.csv
+/data/Miscellaneous.csv
+/data/Rugs.csv
+/data/Tools.csv
+/data/Wall-mounted.csv
+/data/Wallpaper.csv
 package-lock.json
 ./package-lock.json
