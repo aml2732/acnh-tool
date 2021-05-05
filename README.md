@@ -1,3 +1,28 @@
+
+# Development:
+- `cd acnh-tool`
+- `npm start`
+
+# Data Generation:
+If you need to regenerate the data follow the instructions below:
+- To generate data you must go to the Fan maintained source: https://tinyurl.com/acnh-sheet
+- In google doc, click the 'Recipes' tab (You might have to arrow over for a bit to find it)
+- Then in google doc go to file>download>.csv
+- Save/move that file into acnh-tool/data with the file name `Recipes.csv`
+- Then run this script: `node scripts/generate-data.js`
+- The data will output to acnh-tool/data.json
+- Copy this javascript array into recipeList.js
+
+Note this isn't automatically included in the project cus copying all that data and putting on my github in its raw form just doesn't seem right.
+
+# Create dist
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
