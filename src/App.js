@@ -35,7 +35,9 @@ function App() {
     sort: '',
     recipeList: RecipeList,
     recipe: '',
-    material: ''
+    material: '',
+    pricestart: '',
+    priceend: ''
   });
 
   const handleChange = (event) => {
@@ -77,6 +79,17 @@ function App() {
         },false);
       });
     }
+
+    //Price logic
+    if(state.pricestart){
+      copyOfRecipieList = copyOfRecipieList.filter((r) => r.price >= parseInt(state.pricestart));
+    }
+
+    if(state.priceend){
+      copyOfRecipieList = copyOfRecipieList.filter((r) => r.price <= parseInt(state.priceend));
+    }
+
+
 
     setState({
       ...state,
@@ -132,6 +145,24 @@ function App() {
               inputProps={{
               name: 'material',
               id: 'material-search'
+            }}/>
+
+            <TextField label="Start Price"
+              value={state.pricestart}
+              onChange={handleChange}
+              type="number"
+              inputProps={{
+              name: 'pricestart',
+              id: 'start-price'
+            }}/>
+
+            <TextField label="End Price"
+              value={state.priceend}
+              onChange={handleChange}
+              type="number"
+              inputProps={{
+              name: 'priceend',
+              id: 'end-price'
             }}/>
 
             <Button  variant="contained" color="primary" onClick={applySettings}>Apply Settings</Button>
