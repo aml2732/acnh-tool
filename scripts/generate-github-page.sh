@@ -4,4 +4,4 @@
 npm run build
 rm -rf docs
 mv build docs
-sed -i 's#/static/#./static/#' docs/index.html
+sed -i 's#/static/#./static/#g' docs/index.html
