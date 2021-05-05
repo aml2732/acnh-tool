@@ -4,24 +4,10 @@ import RecipeList from './recipeList.js';
 
 /*Material UI*/
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-/*Table*/
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import { Grid } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
-
-/*Form*/
-import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import NativeSelect from '@material-ui/core/NativeSelect';
-
-/*Other*/
-import Button from '@material-ui/core/Button';
+import {InputLabel, FormHelperText, FormControl, Select, NativeSelect, TextField, Button} from '@material-ui/core';
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -31,11 +17,23 @@ const StyledTableCell = withStyles((theme) => ({
   }
 }))(TableCell);
 
+function textualSearchAlgo(findThis, inThis){
+  if(inThis.includes(findThis)){return true;}
+  for(let i=0;i<inThis.length;i++){
+    if(findThis && inThis[i] == findThis[0]){
+      findThis = findThis.substring(1, findThis.length);
+    }
+  }
+  if(findThis.length == 0){return true;}
+  else{return false;}
+}
+
 
 function App() {
   const [state, setState] = React.useState({
     sort: '',
-    recipeList: RecipeList
+    recipeList: RecipeList,
+    recipe: ''
   });
 
   const handleChange = (event) => {
@@ -46,9 +44,10 @@ function App() {
       });
     };
 
-  const applySettings = (event) => {
+   const applySettings = (event) => {
+    let copyOfRecipieList = [...RecipeList]; //copy the original recipe list
+    //Sort logic
     if(state.sort){
-      let copyOfRecipieList = [...state.recipeList];
       copyOfRecipieList.sort(function(a,b){
         if((typeof a[state.sort]) == 'string'){
           return a[state.sort].localeCompare(b[state.sort]);
@@ -61,12 +60,18 @@ function App() {
           return a[state.sort]-b[state.sort];
         }
       });
-      setState({
-        ...state,
-        recipeList: copyOfRecipieList
-      });
     }
 
+    //Name-search logic
+    if(state.recipe){
+      console.log('got to state.recipe...')
+      copyOfRecipieList = copyOfRecipieList.filter((r)=>{return textualSearchAlgo(state.recipe.toLowerCase(), r.name);});
+    }
+
+    setState({
+      ...state,
+      recipeList: copyOfRecipieList
+    });
     console.log('got to applySettings...')
   }
 
@@ -80,27 +85,40 @@ function App() {
       <section>
 
        <div>
-       <FormControl >
-               <InputLabel htmlFor="sort-table">Sort</InputLabel>
-               <Select
-                 native
-                 value={state.sort}
-                 onChange={handleChange}
-                 inputProps={{
-                   name: 'sort',
-                   id: 'sort-table',
-                 }}
-               >
-                 <option aria-label="None" value="" />
-                 <option value="name">Name</option>
-                 <option value="price">Price</option>
-                 <option value="classification">Classification</option>
-                 <option value="complexityasc">Complexity Ascending</option>
-                 <option value="complexitydsc">Complexity Decending</option>
-               </Select>
-             </FormControl>
+       <FormControl>
+         <Grid container spacing={10}>
+         <Grid item>
+           <InputLabel htmlFor="sort-table">Sort</InputLabel>
+           <Select
+             native
+             value={state.sort}
+             onChange={handleChange}
+             inputProps={{
+               name: 'sort',
+               id: 'sort-table',
+             }}
+            >
+             <option aria-label="None" value="" />
+             <option value="name">Name</option>
+             <option value="price">Price</option>
+             <option value="classification">Classification</option>
+             <option value="complexityasc">Complexity Ascending</option>
+             <option value="complexitydsc">Complexity Decending</option>
+            </Select>
 
-             <Button  variant="contained" color="primary" onClick={applySettings}>Apply Settings</Button>
+            <TextField label="Recipe"
+              value={state.recipe}
+              onChange={handleChange}
+              inputProps={{
+              name: 'recipe',
+              id: 'recipe-search'
+            }}/>
+
+            <Button  variant="contained" color="primary" onClick={applySettings}>Apply Settings</Button>
+            </Grid>
+          </Grid>
+        </FormControl>
+
        </div>
 
        <TableContainer component={Paper}>
