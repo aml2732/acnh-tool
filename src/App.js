@@ -19,12 +19,13 @@ const StyledTableCell = withStyles((theme) => ({
 
 function textualSearchAlgo(findThis, inThis){
   if(inThis.includes(findThis)){return true;}
+  findThis = findThis.replace(/\s/ig, '');
   for(let i=0;i<inThis.length;i++){
-    if(findThis && inThis[i] == findThis[0]){
+    if(findThis && inThis[i] === findThis[0]){
       findThis = findThis.substring(1, findThis.length);
     }
   }
-  if(findThis.length == 0){return true;}
+  if(findThis.length === 0){return true;}
   else{return false;}
 }
 
@@ -33,7 +34,8 @@ function App() {
   const [state, setState] = React.useState({
     sort: '',
     recipeList: RecipeList,
-    recipe: ''
+    recipe: '',
+    material: ''
   });
 
   const handleChange = (event) => {
@@ -64,8 +66,16 @@ function App() {
 
     //Name-search logic
     if(state.recipe){
-      console.log('got to state.recipe...')
       copyOfRecipieList = copyOfRecipieList.filter((r)=>{return textualSearchAlgo(state.recipe.toLowerCase(), r.name);});
+    }
+
+    //Material-search logic
+    if(state.material){
+      copyOfRecipieList = copyOfRecipieList.filter((r) => {
+        return r.materials.reduce((t,m)=>{
+          return t || textualSearchAlgo(state.material.toLowerCase(), m.name);
+        },false);
+      });
     }
 
     setState({
@@ -83,6 +93,8 @@ function App() {
       </header>
 
       <section>
+      <p>Use the following filters to sort and search by recipe name and material. The filters are additive, so for example if you search by the 'recipe name' : star, and also search by the material name 'large star'; the resulting set will be recipes that contain 'star' in their name and are also made up of at least 1 'large star' ingrediant. Searches are also a little fuzzy, looking for exact matches, as well as any grouping of words that contains your specified search characters. </p>
+      <p>Don't forget to hit 'Apply Settings'!</p>
 
        <div>
        <FormControl>
@@ -112,6 +124,14 @@ function App() {
               inputProps={{
               name: 'recipe',
               id: 'recipe-search'
+            }}/>
+
+            <TextField label="Material"
+              value={state.material}
+              onChange={handleChange}
+              inputProps={{
+              name: 'material',
+              id: 'material-search'
             }}/>
 
             <Button  variant="contained" color="primary" onClick={applySettings}>Apply Settings</Button>
