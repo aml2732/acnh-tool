@@ -15,27 +15,44 @@ const fs = require('fs');
 const path = require('path');
 
 /*Other paths*/
+const csvAccessories = './data/Accessories.csv';
+const csvBags = './data/Bags.csv';
+const csvBottoms = './data/Bottoms.csv';
+const csvDress = './data/Dress-Up.csv';
 const csvFencing = './data/Fencing.csv';
 const csvFloors = './data/Floors.csv';
+const csvHeadwear = './data/Headwear.csv';
 const csvHousewares = './data/Housewares.csv';
 const csvMiscellaneous = './data/Miscellaneous.csv';
 const csvRugs = './data/Rugs.csv';
+const csvShoes = './data/Shoes.csv';
 const csvTools = './data/Tools.csv';
+const csvTops = './data/Tops.csv';
+const csvUmbrellas = './data/Umbrellas.csv';
 const csvWallMounted = './data/Wall-mounted.csv';
 const csvWallpaper = './data/Wallpaper.csv';
 
+
 async function runner(){
   //Create item lookup JSON:
+  const jsonAccessories = await csv().fromFile(csvAccessories);
+  const jsonBags = await csv().fromFile(csvBags);
+  const jsonBottoms = await csv().fromFile(csvBottoms);
+  const jsonDress = await csv().fromFile(csvDress);
   const jsonFencing = await csv().fromFile(csvFencing);
   const jsonFloors = await csv().fromFile(csvFloors);
+  const jsonHeadwear = await csv().fromFile(csvHeadwear);
   const jsonHousewares = await csv().fromFile(csvHousewares);
   const jsonMiscellaneous = await csv().fromFile(csvMiscellaneous);
   const jsonRugs = await csv().fromFile(csvRugs);
+  const jsonShoes = await csv().fromFile(csvShoes);
   const jsonTools = await csv().fromFile(csvTools);
+  const jsonTops = await csv().fromFile(csvTops);
+  const jsonUmbrellas = await csv().fromFile(csvUmbrellas);
   const jsonWallMounted = await csv().fromFile(csvWallMounted);
   const jsonWallpaper = await csv().fromFile(csvWallpaper);
 
-  let itemLookup = jsonFencing.concat(jsonFloors, jsonHousewares, jsonMiscellaneous, jsonRugs, jsonTools, jsonWallMounted, jsonWallpaper);
+  let itemLookup = jsonFencing.concat(jsonAccessories, jsonBags, jsonBottoms, jsonDress, jsonFloors, jsonHeadwear, jsonHousewares, jsonMiscellaneous, jsonRugs, jsonShoes, jsonTools, jsonTops, jsonUmbrellas, jsonWallMounted, jsonWallpaper);
 
 
   //Fetch the Recipe file as JSON:

@@ -15,12 +15,20 @@ If you need to regenerate the data follow the instructions below:
 - Then in google doc go to file>download>.csv
 - Save/move that file into acnh-tool/data with the file name `Recipes.csv`
 - Do the above steps again for the other tabs and name them:
+  - Accessories: `/data/Accessories.csv`
+  - Bags tab: `/data/Bags.csv`
+  - Bottoms tab: `/data/Bottoms.csv`
+  - Dress tab: `/data/Dress-Up.csv`
   - Fencing tab: `/data/Fencing.csv`
   - Floors tab: `/data/Floors.csv`
+  - Headware tab: `/data/Headwear.csv`
   - Housewares tab: `/data/Housewares.csv`
   - Miscellaneous tab: `/data/Miscellaneous.csv`
   - Rugs tab: `/data/Rugs.csv`
+  - Shoes tab: `/data/Shoes.csv`
   - Tools tab: `/data/Tools.csv`
+  - Tops tab: `/data/Tops.csv`
+  - Umbrellas tab: `/data/Umbrellas.csv`
   - Wall-mounted tab: `/data/Wall-mounted.csv`
   - Wallpaper tab: `/data/Wallpaper.csv`
 - Then run this script: `node scripts/generate-data.js`
