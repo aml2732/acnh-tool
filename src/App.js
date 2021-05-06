@@ -37,7 +37,8 @@ function App() {
     recipe: '',
     material: '',
     pricestart: '',
-    priceend: ''
+    priceend: '',
+    obtainedby: ''
   });
 
   const handleChange = (event) => {
@@ -89,6 +90,11 @@ function App() {
       copyOfRecipieList = copyOfRecipieList.filter((r) => r.price <= parseInt(state.priceend));
     }
 
+    //Obtained By logic
+    if(state.obtainedby){
+      copyOfRecipieList = copyOfRecipieList.filter((r) => r.obtainedBy.includes(state.obtainedby));
+    }
+
 
 
     setState({
@@ -110,26 +116,28 @@ function App() {
       <p>Don't forget to hit 'Apply Settings'!</p>
 
        <div>
-       <FormControl>
-         <Grid container spacing={10}>
+
+        <Grid container spacing={10}>
          <Grid item>
-           <InputLabel htmlFor="sort-table">Sort</InputLabel>
-           <Select
-             native
-             value={state.sort}
-             onChange={handleChange}
-             inputProps={{
-               name: 'sort',
-               id: 'sort-table',
-             }}
-            >
-             <option aria-label="None" value="" />
-             <option value="name">Name</option>
-             <option value="price">Price</option>
-             <option value="classification">Classification</option>
-             <option value="complexityasc">Complexity Ascending</option>
-             <option value="complexitydsc">Complexity Decending</option>
-            </Select>
+           <FormControl>
+             <InputLabel htmlFor="sort-table">Sort</InputLabel>
+             <Select
+               native
+               value={state.sort}
+               onChange={handleChange}
+               inputProps={{
+                 name: 'sort',
+                 id: 'sort-table',
+               }}
+              >
+               <option aria-label="None" value="" />
+               <option value="name">Name</option>
+               <option value="price">Price</option>
+               <option value="classification">Classification</option>
+               <option value="complexityasc">Complexity Ascending</option>
+               <option value="complexitydsc">Complexity Decending</option>
+              </Select>
+            </FormControl>
 
             <TextField label="Recipe"
               value={state.recipe}
@@ -165,10 +173,38 @@ function App() {
               id: 'end-price'
             }}/>
 
+            <FormControl>
+              <InputLabel htmlFor="obtainedby">Obtained By</InputLabel>
+              <Select
+                native
+                value={state.obtainedby}
+                onChange={handleChange}
+                inputProps={{
+                  name: 'obtainedby',
+                  id: 'obtainedby',
+                }}
+               >
+                <option aria-label="None" value="" />
+                <option value="All villagers">All villagers</option>
+                <option value="Balloons">Balloons</option>
+                <option value="Big Sister villagers">Big Sister villagers</option>
+                <option value="Celeste">Celeste</option>
+                <option value="Cranky villagers">Cranky villagers</option>
+                <option value="Egg bottle">Egg bottle</option>
+                <option value="Jock villagers">Jocker villagers</option>
+                <option value="Lazy villagers">Lazy villagers</option>
+                <option value="Normal villagers">Normal villagers</option>
+                <option value="Nook Miles Redemption">Nook Miles Redemption</option>
+                <option value="Peppy villagers">Peppy villagers</option>
+                <option value="Smug villagers">Smug villagers</option>
+                <option value="Snooty villagers">Snooty villagers</option>
+
+               </Select>
+             </FormControl>
+
             <Button  variant="contained" color="primary" onClick={applySettings}>Apply Settings</Button>
             </Grid>
           </Grid>
-        </FormControl>
 
        </div>
 
@@ -179,6 +215,7 @@ function App() {
               <StyledTableCell>Name</StyledTableCell>
               <StyledTableCell align="right">Price</StyledTableCell>
               <StyledTableCell align="right">Classification</StyledTableCell>
+              <StyledTableCell align="right">Obtained By</StyledTableCell>
               <StyledTableCell align="right">Materials</StyledTableCell>
             </TableRow>
           </TableHead>
@@ -188,6 +225,7 @@ function App() {
                 <TableCell component="th" scope="row">{row.name}</TableCell>
                 <TableCell align="right">{row.price}</TableCell>
                 <TableCell align="right">{row.classification}</TableCell>
+                <TableCell align="right">{row.obtainedBy}</TableCell>
                 <TableCell align="right">
                   {
                     row.materials.map((material)=> (

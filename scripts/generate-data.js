@@ -72,6 +72,7 @@ async function runner(){
     }
 
     newItem.classification = (item.Category || "unknown");
+    newItem.obtainedBy = (item.Source || "unknown");
     newItem.materials = [];
     for(let i=1; i<7; i++){
       if(!item[`Material ${i}`] || item[`Material ${i}`].length<1){
